@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 	"path/filepath"
 	"runtime"
 
@@ -32,10 +33,14 @@ func main() {
 	defer db.Close()
 
 	// Run migrations
-	// Resolve migrations directory relative to the project root
-	_, filename, _, _ := runtime.Caller(0)
-	projectRoot := filepath.Join(filepath.Dir(filename), "..", "..", "..")
-	migrationsDir := filepath.Join(projectRoot, "backend", "migrations")
+	// Resolve migrations directory
+	migrationsDir := "migrations"
+	if _, err := os.Stat(migrationsDir); os.IsNotExist(err) {
+		// Fallback to runtime.Caller for local development
+		_, filename, _, _ := runtime.Caller(0)
+		projectRoot := filepath.Join(filepath.Dir(filename), "..", "..", "..")
+		migrationsDir = filepath.Join(projectRoot, "backend", "migrations")
+	}
 
 	if err := database.RunMigrations(db, migrationsDir); err != nil {
 		log.Fatalf("Failed to run migrations: %v", err)

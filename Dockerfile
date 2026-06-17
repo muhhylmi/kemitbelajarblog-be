@@ -27,9 +27,8 @@ COPY --from=builder /app/server .
 
 # Copy migrations to the path expected by runtime.Caller in main.go.
 # In the builder, main.go is at /app/cmd/server/main.go.
-# runtime.Caller resolves projectRoot to / (3 levels up from /app/cmd/server).
-# So it expects migrations at /backend/migrations.
-COPY --from=builder /app/migrations /backend/migrations
+# So it expects migrations relative to the executable (./migrations)
+COPY --from=builder /app/migrations ./migrations
 
 # Expose port
 EXPOSE 3001
