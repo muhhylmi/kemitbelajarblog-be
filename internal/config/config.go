@@ -15,7 +15,7 @@ type Config struct {
 	DBPassword  string
 	DBName      string
 	ServerPort  string
-	FrontendURL string
+	AllowedOrigins string
 }
 
 // Load reads configuration from the .env file and environment variables.
@@ -31,7 +31,7 @@ func Load() (*Config, error) {
 		DBPassword:  getEnv("DB_PASSWORD", "postgres"),
 		DBName:      getEnv("DB_NAME", "kemitbelajar"),
 		ServerPort:  getEnv("SERVER_PORT", "3001"),
-		FrontendURL: getEnv("FRONTEND_URL", "http://localhost:3000"),
+		AllowedOrigins: getEnv("ALLOWED_ORIGINS", "http://localhost:3000"),
 	}
 
 	return cfg, nil

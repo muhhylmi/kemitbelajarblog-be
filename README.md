@@ -25,7 +25,7 @@ Make sure to update the environment variables according to your local setup:
 - `DB_PASSWORD`: Your database password.
 - `DB_NAME`: Your database name.
 - `SERVER_PORT`: Port for the Fiber server (default: 3001).
-- `FRONTEND_URL`: URL of your frontend application to allow CORS (default: `http://localhost:3000`).
+- `ALLOWED_ORIGINS`: Comma-separated URLs of allowed origins for CORS (default: `http://localhost:3000`).
 
 ### 2. Database Migrations
 

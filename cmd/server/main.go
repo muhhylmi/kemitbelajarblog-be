@@ -60,7 +60,7 @@ func main() {
 		Format: "${time} | ${status} | ${latency} | ${method} ${path}\n",
 	}))
 	app.Use(cors.New(cors.Config{
-		AllowOrigins: cfg.FrontendURL,
+		AllowOrigins: cfg.AllowedOrigins,
 		AllowMethods: "GET,POST,PUT,DELETE,OPTIONS",
 		AllowHeaders: "Origin,Content-Type,Accept,Authorization",
 	}))
@@ -82,7 +82,7 @@ func main() {
 	// Start server
 	addr := fmt.Sprintf(":%s", cfg.ServerPort)
 	log.Printf("🚀 Kemitbelajar Blog API starting on %s", addr)
-	log.Printf("📡 CORS allowed origin: %s", cfg.FrontendURL)
+	log.Printf("📡 CORS allowed origins: %s", cfg.AllowedOrigins)
 	if err := app.Listen(addr); err != nil {
 		log.Fatalf("Failed to start server: %v", err)
 	}
